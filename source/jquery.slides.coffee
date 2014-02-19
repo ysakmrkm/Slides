@@ -84,6 +84,11 @@
         # [function] Called when animation has started
       complete: () ->
         # [function] Called when animation is complete
+    thumbnail:
+      format: "img"
+      path: "img"
+      name:'thumb'
+      extension:'.jpg'
 
   class Plugin
     constructor: (@element, options) ->
@@ -243,11 +248,27 @@
           class: "slidesjs-pagination-item"
         ).appendTo(pagination)
 
-        paginationLink = $("<a>"
-          href: "#"
-          "data-slidesjs-item": i
-          html: i + 1
-        ).appendTo(paginationItem)
+        if @options.thumbnail.format is 'text'
+          paginationLink = $("<a>"
+            href: "#"
+            "data-slidesjs-item": i
+            html: i + 1
+          ).appendTo(paginationItem)
+
+        if @options.thumbnail.format is 'img'
+          paginationLink = $("<a>"
+            href: "#"
+            "data-slidesjs-item": i
+          ).appendTo(paginationItem);
+
+        if i < 9
+          imgNum = '0'+(i + 1);
+        else
+          imgNum = (i + 1);
+
+        paginationImg = $("<img>"
+          src: @options.thumbnail.path+"/"+@options.thumbnail.name+imgNum+@options.thumbnail.extension
+        ).appendTo(paginationLink);
 
         # bind click events
         paginationLink.click (e) =>

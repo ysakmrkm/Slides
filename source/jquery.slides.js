@@ -36,6 +36,12 @@
       loaded: function() {},
       start: function() {},
       complete: function() {}
+    },
+    thumbnail: {
+      format: "img",
+      path: "img",
+      name: 'thumb',
+      extension: '.jpg'
     }
   };
   Plugin = (function() {
@@ -180,15 +186,31 @@
       }).appendTo($element);
       $.each(new Array(this.data.total), (function(_this) {
         return function(i) {
-          var paginationItem, paginationLink;
+          var imgNum, paginationImg, paginationItem, paginationLink;
           paginationItem = $("<li>", {
             "class": "slidesjs-pagination-item"
           }).appendTo(pagination);
-          paginationLink = $("<a>", {
-            href: "#",
-            "data-slidesjs-item": i,
-            html: i + 1
-          }).appendTo(paginationItem);
+          if (_this.options.thumbnail.format === 'text') {
+            paginationLink = $("<a>", {
+              href: "#",
+              "data-slidesjs-item": i,
+              html: i + 1
+            }).appendTo(paginationItem);
+          }
+          if (_this.options.thumbnail.format === 'img') {
+            paginationLink = $("<a>", {
+              href: "#",
+              "data-slidesjs-item": i
+            }).appendTo(paginationItem);
+          }
+          if (i < 9) {
+            imgNum = '0' + (i + 1);
+          } else {
+            imgNum = i + 1;
+          }
+          paginationImg = $("<img>", {
+            src: _this.options.thumbnail.path + "/" + _this.options.thumbnail.name + imgNum + _this.options.thumbnail.extension
+          }).appendTo(paginationLink);
           return paginationLink.click(function(e) {
             var pauseTimer;
             e.preventDefault();
