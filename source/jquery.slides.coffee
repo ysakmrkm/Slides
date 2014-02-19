@@ -255,7 +255,19 @@
           # Stop play
           @stop(true)
           # Goto to selected slide
-          @goto( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
+          if @options.play.auto
+              @goto( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
+              clearTimeout(pauseTimer)
+              pauseTimer = setTimeout(
+                ->
+                  _this.play()
+                  return
+                ,
+                @options.play.interval
+              )
+          else
+              @goto( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
+              return
       )
 
     # Bind update on browser resize
@@ -516,7 +528,7 @@
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
           clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
+          $.data this, "restartDelay", null
           @stop()
 
         # Play slideshow on mouse leave
