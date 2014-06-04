@@ -261,14 +261,14 @@
             "data-slidesjs-item": i
           ).appendTo(paginationItem);
 
-        if i < 9
-          imgNum = '0'+(i + 1);
-        else
-          imgNum = (i + 1);
+          if i < 9
+            imgNum = '0'+(i + 1);
+          else
+            imgNum = (i + 1);
 
-        paginationImg = $("<img>"
-          src: @options.thumbnail.path+"/"+@options.thumbnail.name+imgNum+@options.thumbnail.extension
-        ).appendTo(paginationLink);
+          paginationImg = $("<img>"
+            src: @options.thumbnail.path+"/"+@options.thumbnail.name+imgNum+@options.thumbnail.extension
+          ).appendTo(paginationLink);
 
         # bind click events
         paginationLink.click (e) =>

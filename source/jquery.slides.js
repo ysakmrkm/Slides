@@ -202,15 +202,16 @@
               href: "#",
               "data-slidesjs-item": i
             }).appendTo(paginationItem);
+
+            if (i < 9) {
+              imgNum = '0' + (i + 1);
+            } else {
+              imgNum = i + 1;
+            }
+            paginationImg = $("<img>", {
+              src: _this.options.thumbnail.path + "/" + _this.options.thumbnail.name + imgNum + _this.options.thumbnail.extension
+            }).appendTo(paginationLink);
           }
-          if (i < 9) {
-            imgNum = '0' + (i + 1);
-          } else {
-            imgNum = i + 1;
-          }
-          paginationImg = $("<img>", {
-            src: _this.options.thumbnail.path + "/" + _this.options.thumbnail.name + imgNum + _this.options.thumbnail.extension
-          }).appendTo(paginationLink);
           return paginationLink.click(function(e) {
             var pauseTimer;
             e.preventDefault();
