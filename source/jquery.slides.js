@@ -137,16 +137,26 @@
     }
     $(".slidesjs-next", $element).click((function(_this) {
       return function(e) {
+        var pauseTimer;
         e.preventDefault();
         _this.stop(true);
-        return _this.next(_this.options.navigation.effect);
+        _this.next(_this.options.navigation.effect);
+        clearTimeout(pauseTimer);
+        return pauseTimer = setTimeout(function() {
+          _this.play();
+        }, _this.options.play.interval);
       };
     })(this));
     $(".slidesjs-previous", $element).click((function(_this) {
       return function(e) {
+        var pauseTimer;
         e.preventDefault();
         _this.stop(true);
-        return _this.previous(_this.options.navigation.effect);
+        _this.previous(_this.options.navigation.effect);
+        clearTimeout(pauseTimer);
+        return pauseTimer = setTimeout(function() {
+          _this.play();
+        }, _this.options.play.interval);
       };
     })(this));
     if (this.options.play.active) {
@@ -202,7 +212,6 @@
               href: "#",
               "data-slidesjs-item": i
             }).appendTo(paginationItem);
-
             if (i < 9) {
               imgNum = '0' + (i + 1);
             } else {

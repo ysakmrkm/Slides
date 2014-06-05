@@ -203,10 +203,28 @@
       @stop(true)
       @next(@options.navigation.effect)
 
+      clearTimeout(pauseTimer)
+      pauseTimer = setTimeout(
+        ->
+          _this.play()
+          return
+        ,
+        @options.play.interval
+      )
+
     $(".slidesjs-previous", $element).click (e) =>
       e.preventDefault()
       @stop(true)
       @previous(@options.navigation.effect)
+
+      clearTimeout(pauseTimer)
+      pauseTimer = setTimeout(
+        ->
+          _this.play()
+          return
+        ,
+        @options.play.interval
+      )
 
     if @options.play.active
       playButton = $("<a>",
